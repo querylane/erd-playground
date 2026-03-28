@@ -1,6 +1,15 @@
+import { IBM_Plex_Mono, Inter } from 'next/font/google'
 import type { Metadata } from 'next'
 import type React from 'react'
 import './globals.css'
+
+const inter = Inter({ subsets: ['latin'] })
+
+const ibmPlexMono = IBM_Plex_Mono({
+  weight: ['400', '500'],
+  subsets: ['latin'],
+  variable: '--code-font',
+})
 
 export const metadata: Metadata = {
   title: 'ERD Playground — Paste SQL, See Your Schema',
@@ -18,7 +27,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={`${inter.className} ${ibmPlexMono.variable}`}>
+        {children}
+      </body>
     </html>
   )
 }
