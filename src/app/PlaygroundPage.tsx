@@ -12,6 +12,9 @@ import styles from './PlaygroundPage.module.css'
 import { SqlEditor } from './SqlEditor'
 import { useSqlParser } from './useSqlParser'
 
+const isEmptySchema = (schema: { tables: Record<string, unknown> }) =>
+  Object.keys(schema.tables).length === 0
+
 const STORAGE_KEY = 'erd-playground-sql'
 
 const DEFAULT_SQL = `-- Example: Blog database schema
@@ -109,39 +112,40 @@ export const PlaygroundPage = () => {
           onDragging={(isDragging) => setIsResizing(isDragging)}
         />
         <ResizablePanel defaultSize={60} minSize={30} isResizing={isResizing}>
-          <div
-            className={`${styles.viewerPanel} ${isStale ? styles.viewerStale : ''}`}
-          >
-            {isStale && (
-              <div className={styles.staleBanner}>
-                Showing last valid diagram — fix errors to update
-              </div>
-            )}
-            {isParsing && (
-              <div className={styles.parsingOverlay}>
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  className={styles.spinner}
-                >
-                  <title>Loading</title>
-                  <circle
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeDasharray="31.4 31.4"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                Building diagram...
-              </div>
-            )}
-            <PlaygroundErdViewer schema={schema} />
-          </div>
+          {isParsing && isEmptySchema(schema) ? (
+            <div className={styles.loadingPanel}>
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                className={styles.spinner}
+              >
+                <title>Loading</title>
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeDasharray="31.4 31.4"
+                  strokeLinecap="round"
+                />
+              </svg>
+              Building diagram...
+            </div>
+          ) : (
+            <div
+              className={`${styles.viewerPanel} ${isStale ? styles.viewerStale : ''}`}
+            >
+              {isStale && (
+                <div className={styles.staleBanner}>
+                  Showing last valid diagram — fix errors to update
+                </div>
+              )}
+              <PlaygroundErdViewer schema={schema} />
+            </div>
+          )}
         </ResizablePanel>
       </ResizablePanelGroup>
     </div>
