@@ -1,0 +1,32 @@
+{
+  "name": "erd-playground",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@codemirror/lang-sql": "^6.10.0",
+    "@codemirror/language": "^6.11.3",
+    "@codemirror/state": "^6.5.2",
+    "@codemirror/view": "^6.38.6",
+    "@liam-hq/erd-core": "0.6.18",
+    "@liam-hq/schema": "0.6.1",
+    "@liam-hq/ui": "0.0.24",
+    "@lezer/highlight": "^1.2.1",
+    "codemirror": "^6.0.2",
+    "next": "^15.4.8",
+    "nuqs": "^2.4.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "valibot": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.18.11",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "typescript": "^5.9.3"
+  }
+}

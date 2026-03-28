@@ -1,0 +1,51 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.editor {
+  flex: 1;
+  overflow: auto;
+}
+
+.editor :global(.cm-editor) {
+  height: 100%;
+}
+
+.editor :global(.cm-scroller) {
+  overflow: auto;
+}
+
+.statusBar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-1) var(--spacing-3);
+  font-size: var(--font-size-3);
+  color: var(--overlay-50);
+  background-color: var(--overlay-5);
+  border-top: 1px solid var(--pane-border);
+}
+
+.spacer {
+  flex: 1;
+}
+
+.resetButton {
+  padding: 2px 8px;
+  font-size: var(--font-size-3);
+  color: var(--overlay-50);
+  cursor: pointer;
+  background: none;
+  border: 1px solid var(--overlay-20);
+  border-radius: var(--border-radius-md);
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.resetButton:hover {
+  color: var(--global-foreground);
+  border-color: var(--overlay-50);
+}

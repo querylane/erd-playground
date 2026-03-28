@@ -1,0 +1,40 @@
+.container {
+  display: flex;
+  height: 100dvh;
+  width: 100%;
+}
+
+.editorPanel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--global-background);
+  border-right: 1px solid var(--pane-border);
+}
+
+.viewerPanel {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.viewerStale {
+  outline: 2px solid rgba(229, 83, 75, 0.5);
+  outline-offset: -2px;
+}
+
+.staleBanner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: var(--spacing-1) var(--spacing-3);
+  font-size: var(--font-size-3);
+  font-weight: 500;
+  color: #f0a8a4;
+  text-align: center;
+  background-color: rgba(229, 83, 75, 0.15);
+  border-bottom: 1px solid rgba(229, 83, 75, 0.3);
+}
