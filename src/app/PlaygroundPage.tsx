@@ -11,6 +11,7 @@ import { PlaygroundErdViewer } from './PlaygroundErdViewer'
 import styles from './PlaygroundPage.module.css'
 import { SqlEditor } from './SqlEditor'
 import { ErrorBoundary } from './ErrorBoundary'
+import { Legend } from './Legend'
 import { useSqlParser } from './useSqlParser'
 
 const isEmptySchema = (schema: { tables: Record<string, unknown> }) =>
@@ -114,6 +115,7 @@ export const PlaygroundPage = () => {
                   Showing last valid diagram — fix errors to update
                 </div>
               )}
+              <Legend />
               <ErrorBoundary
                 fallback={
                   <div className={styles.loadingPanel}>
