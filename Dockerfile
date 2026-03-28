@@ -3,7 +3,7 @@ FROM node:22-alpine AS base
 # Install dependencies
 FROM base AS deps
 WORKDIR /app
-COPY package.json ./
+COPY package.json liam-hq-schema-0.6.1.tgz ./
 RUN npm install
 
 # Build the app
