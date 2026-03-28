@@ -73,15 +73,12 @@ const saveSql = (sql: string) => {
 
 export const PlaygroundPage = () => {
   const [sqlText, setSqlText] = useState(DEFAULT_SQL)
-  const [isResizing, setIsResizing] = useState(false)
   const { schema, errors, isParsing, isStale } = useSqlParser(sqlText)
 
-  // Load saved SQL from localStorage on mount
   useEffect(() => {
     setSqlText(loadSavedSql())
   }, [])
 
-  // Persist SQL to localStorage on change
   useEffect(() => {
     saveSql(sqlText)
   }, [sqlText])
@@ -91,11 +88,8 @@ export const PlaygroundPage = () => {
 
   return (
     <div className={styles.container}>
-      <ResizablePanelGroup
-        direction="horizontal"
-        onLayout={() => setIsResizing(false)}
-      >
-        <ResizablePanel defaultSize={40} minSize={20} isResizing={isResizing}>
+      <ResizablePanelGroup direction="horizontal">
+        <ResizablePanel defaultSize={40} minSize={20} isResizing={false}>
           <div className={styles.editorPanel}>
             <SqlEditor
               value={sqlText}
@@ -107,31 +101,11 @@ export const PlaygroundPage = () => {
             <ErrorDisplay errors={errors} isStale={isStale} />
           </div>
         </ResizablePanel>
-        <ResizableHandle
-          withHandle
-          onDragging={(isDragging) => setIsResizing(isDragging)}
-        />
-        <ResizablePanel defaultSize={60} minSize={30} isResizing={isResizing}>
+        <ResizableHandle className={styles.handle} />
+        <ResizablePanel defaultSize={60} minSize={30} isResizing={false}>
           {isParsing && isEmptySchema(schema) ? (
             <div className={styles.loadingPanel}>
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                className={styles.spinner}
-              >
-                <title>Loading</title>
-                <circle
-                  cx="12"
-                  cy="12"
-                  r="10"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeDasharray="31.4 31.4"
-                  strokeLinecap="round"
-                />
-              </svg>
+              <div className={styles.spinner} />
               Building diagram...
             </div>
           ) : (
