@@ -10,6 +10,7 @@ import { ErrorDisplay } from './ErrorDisplay'
 import { PlaygroundErdViewer } from './PlaygroundErdViewer'
 import styles from './PlaygroundPage.module.css'
 import { SqlEditor } from './SqlEditor'
+import { ErrorBoundary } from './ErrorBoundary'
 import { useSqlParser } from './useSqlParser'
 
 const isEmptySchema = (schema: { tables: Record<string, unknown> }) =>
@@ -117,7 +118,18 @@ export const PlaygroundPage = () => {
                   Showing last valid diagram — fix errors to update
                 </div>
               )}
-              <PlaygroundErdViewer schema={schema} />
+              <ErrorBoundary
+                fallback={
+                  <div className={styles.loadingPanel}>
+                    Something went wrong rendering the diagram.
+                    <br />
+                    Try editing your SQL or click &quot;Load example&quot; to
+                    reset.
+                  </div>
+                }
+              >
+                <PlaygroundErdViewer schema={schema} />
+              </ErrorBoundary>
             </div>
           )}
         </ResizablePanel>
