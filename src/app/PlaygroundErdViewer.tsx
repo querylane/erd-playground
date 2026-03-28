@@ -28,8 +28,8 @@ export const PlaygroundErdViewer = ({ schema }: PlaygroundErdViewerProps) => {
         defaultShowMode="ALL_FIELDS"
       >
         <ERDRenderer
-          defaultSidebarOpen={false}
-          defaultPanelSizes={[20, 80]}
+          defaultSidebarOpen={true}
+          defaultPanelSizes={[25, 75]}
           errorObjects={[]}
         />
       </ErdRendererProvider>

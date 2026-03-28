@@ -6,26 +6,15 @@
   padding: 0;
 }
 
-:root {
-  --main-font: 'JetBrains Mono', Monaco, Menlo, 'Ubuntu Mono', Consolas,
-    monospace;
-  --code-font: 'JetBrains Mono', Monaco, Menlo, 'Ubuntu Mono', Consolas,
-    monospace;
-
-  /* Override small font sizes from @liam-hq/ui */
-  --font-size-1: 12px;
-  --font-size-2: 13px;
-  --font-size-3: 13px;
-  --font-size-4: 14px;
-}
-
 .react-flow__attribution {
   display: none !important;
 }
 
-/* Ensure the ERD sidebar panel has a usable minimum width */
-.react-flow + [data-panel-group-direction='horizontal'] [data-panel]:first-child {
-  min-width: 180px;
+/* ERD inner sidebar: full-height background and min width */
+[class*='ERDRenderer_mainWrapper'] > [data-panel]:first-child {
+  background-color: #141616 !important;
+  min-width: 160px !important;
+  border-right: 1px solid #2a2d2d;
 }
 
 html,

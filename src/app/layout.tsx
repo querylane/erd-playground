@@ -6,7 +6,6 @@ import './globals.css'
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  variable: '--code-font',
 })
 
 export const metadata: Metadata = {
@@ -20,11 +19,36 @@ export const metadata: Metadata = {
   },
 }
 
+const fontFamily = [
+  "'JetBrains Mono'",
+  'Monaco',
+  'Menlo',
+  "'Ubuntu Mono'",
+  'Consolas',
+  'monospace',
+].join(', ')
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
+      <head>
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              :root {
+                --main-font: ${fontFamily} !important;
+                --code-font: ${fontFamily} !important;
+                --font-size-1: 12px !important;
+                --font-size-2: 13px !important;
+                --font-size-3: 13px !important;
+                --font-size-4: 14px !important;
+              }
+            `,
+          }}
+        />
+      </head>
       <body className={jetbrainsMono.className}>{children}</body>
     </html>
   )
