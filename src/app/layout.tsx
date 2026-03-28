@@ -24,24 +24,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <head>
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-              body { opacity: 0; }
-              body.ready { opacity: 1; transition: opacity 0.15s; }
-            `,
-          }}
-        />
-      </head>
-      <body className={jetbrainsMono.className}>
-        {children}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `document.body.classList.add('ready')`,
-          }}
-        />
-      </body>
+      <body className={jetbrainsMono.className}>{children}</body>
     </html>
   )
 }
