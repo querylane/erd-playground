@@ -117,6 +117,29 @@ export const PlaygroundPage = () => {
                 Showing last valid diagram — fix errors to update
               </div>
             )}
+            {isParsing && (
+              <div className={styles.parsingOverlay}>
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className={styles.spinner}
+                >
+                  <title>Loading</title>
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeDasharray="31.4 31.4"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                Building diagram...
+              </div>
+            )}
             <PlaygroundErdViewer schema={schema} />
           </div>
         </ResizablePanel>

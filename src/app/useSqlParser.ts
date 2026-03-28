@@ -26,14 +26,44 @@ const isEmptySchema = (schema: Schema) =>
 export const useSqlParser = (sqlText: string): ParseState => {
   const [schema, setSchema] = useState<Schema>(emptySchema)
   const [errors, setErrors] = useState<ParseError[]>([])
-  const [isParsing, setIsParsing] = useState(false)
+  const [isParsing, setIsParsing] = useState(true)
   const [isStale, setIsStale] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const requestIdRef = useRef(0)
+  const isFirstParse = useRef(true)
 
   const clearTimer = useCallback(() => {
     if (timerRef.current) clearTimeout(timerRef.current)
   }, [])
+
+  const runParse = useCallback(
+    (sql: string, requestId: number) => {
+      parseSql(sql)
+        .then((result) => {
+          if (requestId !== requestIdRef.current) return
+
+          if (result.errors.length === 0 || !isEmptySchema(result.schema)) {
+            setSchema(result.schema)
+            setErrors(result.errors)
+            setIsStale(false)
+          } else {
+            setErrors(result.errors)
+            setIsStale(true)
+          }
+        })
+        .catch((e: unknown) => {
+          if (requestId !== requestIdRef.current) return
+          const message = e instanceof Error ? e.message : String(e)
+          setErrors([{ name: 'ParseError', message }])
+          setIsStale(true)
+        })
+        .finally(() => {
+          if (requestId !== requestIdRef.current) return
+          setIsParsing(false)
+        })
+    },
+    [],
+  )
 
   useEffect(() => {
     clearTimer()
@@ -49,34 +79,20 @@ export const useSqlParser = (sqlText: string): ParseState => {
     setIsParsing(true)
     const currentRequestId = ++requestIdRef.current
 
-    timerRef.current = setTimeout(() => {
-      parseSql(sqlText)
-        .then((result) => {
-          if (currentRequestId !== requestIdRef.current) return
+    // Parse immediately on first load, debounce subsequent edits
+    if (isFirstParse.current) {
+      isFirstParse.current = false
+      runParse(sqlText, currentRequestId)
+      return clearTimer
+    }
 
-          if (result.errors.length === 0 || !isEmptySchema(result.schema)) {
-            setSchema(result.schema)
-            setErrors(result.errors)
-            setIsStale(false)
-          } else {
-            setErrors(result.errors)
-            setIsStale(true)
-          }
-        })
-        .catch((e: unknown) => {
-          if (currentRequestId !== requestIdRef.current) return
-          const message = e instanceof Error ? e.message : String(e)
-          setErrors([{ name: 'ParseError', message }])
-          setIsStale(true)
-        })
-        .finally(() => {
-          if (currentRequestId !== requestIdRef.current) return
-          setIsParsing(false)
-        })
-    }, DEBOUNCE_MS)
+    timerRef.current = setTimeout(
+      () => runParse(sqlText, currentRequestId),
+      DEBOUNCE_MS,
+    )
 
     return clearTimer
-  }, [sqlText, clearTimer])
+  }, [sqlText, clearTimer, runParse])
 
   return { schema, errors, isParsing, isStale }
 }

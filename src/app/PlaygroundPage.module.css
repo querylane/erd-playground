@@ -24,6 +24,29 @@
   outline-offset: -2px;
 }
 
+.parsingOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #6c7b7f;
+  background-color: rgba(20, 22, 22, 0.85);
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .staleBanner {
   position: absolute;
   top: 0;
