@@ -7,9 +7,9 @@
 }
 
 :root {
-  --main-font: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    sans-serif;
-  --code-font: 'IBM Plex Mono', Monaco, Menlo, 'Ubuntu Mono', Consolas,
+  --main-font: 'JetBrains Mono', Monaco, Menlo, 'Ubuntu Mono', Consolas,
+    monospace;
+  --code-font: 'JetBrains Mono', Monaco, Menlo, 'Ubuntu Mono', Consolas,
     monospace;
 }
 

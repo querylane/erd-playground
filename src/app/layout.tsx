@@ -1,12 +1,11 @@
-import { IBM_Plex_Mono, Inter } from 'next/font/google'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import type { Metadata } from 'next'
 import type React from 'react'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
-const ibmPlexMono = IBM_Plex_Mono({
-  weight: ['400', '500'],
+const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--code-font',
 })
@@ -27,7 +26,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} ${ibmPlexMono.variable}`}>
+      <body className={`${inter.className} ${jetbrainsMono.variable}`}>
         {children}
       </body>
     </html>
