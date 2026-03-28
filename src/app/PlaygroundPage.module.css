@@ -70,12 +70,6 @@
   background-color: #4ec9b0 !important;
 }
 
-/* Disable pointer events on panel content during drag to prevent
-   React Flow / CodeMirror from processing mouse events and causing lag */
-.container :global([data-resize-handle-state='drag']) ~ :global([data-panel]) > * {
-  pointer-events: none;
-}
-
 .staleBanner {
   position: absolute;
   top: 0;
