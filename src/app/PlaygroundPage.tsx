@@ -73,12 +73,8 @@ const saveSql = (sql: string) => {
 }
 
 export const PlaygroundPage = () => {
-  const [sqlText, setSqlText] = useState(DEFAULT_SQL)
+  const [sqlText, setSqlText] = useState(loadSavedSql)
   const { schema, errors, isParsing, isStale } = useSqlParser(sqlText)
-
-  useEffect(() => {
-    setSqlText(loadSavedSql())
-  }, [])
 
   useEffect(() => {
     saveSql(sqlText)
